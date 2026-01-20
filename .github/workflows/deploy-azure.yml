@@ -13,6 +13,8 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}/taskapi
   PYTHON_VERSION: '3.10'
+  AZURE_APP_NAME: ${{ secrets.AZURE_APP_NAME }}
+
 
 jobs:
   test:
