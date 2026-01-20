@@ -1,0 +1,62 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  PYTHON_VERSION: '3.10'
+  IMAGE_NAME: $(Build.Repository.Name)
+  BUILD_TAG: $(Build.BuildId)
+
+stages:
+- stage: BuildAndTest
+  displayName: Build and Test
+  jobs:
+  - job: Test
+    displayName: Install, Test and Lint
+    steps:
+    - checkout: self
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(PYTHON_VERSION)'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt || true
+        pip install pytest httpx flake8 || true
+      displayName: Install dependencies
+    - script: |
+        pytest -q
+      displayName: Run tests
+      continueOnError: false
+    - script: |
+        flake8 . || true
+      displayName: Lint
+      continueOnError: true
+
+- stage: DockerBuild
+  displayName: Build Docker Image
+  dependsOn: BuildAndTest
+  condition: succeeded()
+  jobs:
+  - job: BuildImage
+    displayName: Build Docker image
+    steps:
+    - checkout: self
+    - script: |
+        docker --version
+        docker build -t $(IMAGE_NAME):$(BUILD_TAG) .
+      displayName: Build Docker image
+    - script: |
+        echo "To push the image, configure a service connection or provide registry credentials. See DEPLOYMENT_AZURE.md for guidance."
+      displayName: Push instructions
+
+# Optional: add a deploy stage that uses an Azure service connection or AZURE_CREDENTIALS secret.
+# See DEPLOYMENT_AZURE.md in the repository for recommended deployment steps.
