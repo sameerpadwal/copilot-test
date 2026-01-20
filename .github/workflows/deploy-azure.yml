@@ -104,10 +104,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
-    environment:
-      name: production
-      url: https://${{ secrets.AZURE_APP_NAME }}.azurewebsites.net
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
