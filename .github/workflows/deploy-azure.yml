@@ -1,4 +1,4 @@
-name: Deploy FastAPI to Azure App Service
+name: Deploy FastAPI to Azure App Service Test
 
 on:
   push:
