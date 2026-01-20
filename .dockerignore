@@ -1,0 +1,75 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.env
+.venv
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CI/CD
+.github/workflows/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Documentation
+*.md
+docs/
+README.md
+SECURITY.md
+PERFORMANCE.md
+
+# Testing
+test_api.py
+pytest.ini
+coverage.xml
+.coverage
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Azure
+azure-pipelines.yml
+DEPLOYMENT_AZURE.md
+
+# Misc
+.env.example
+.editorconfig
+LICENSE
